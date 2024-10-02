@@ -1,0 +1,598 @@
+/* src/MemoryGame.css */
+
+/* Style général pour le jeu, applicable à tout le conteneur */
+.memory-game,
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  min-height: 100vh;
+  background-color: #ffffff; /* Couleur de fond légère pour tout le jeu */
+  background: white
+    url("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTZyZmFtaXk4aXI1bWEwZmFjaDlsbjBjazNlZGFrNTVjaXhhZzljdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AmE6daJEC8gooPkc6G/giphy.gif")
+    no-repeat center center fixed;
+  background-size: 55%;
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+}
+
+/* Style pour l'affichage de la séquence et simulant une carte bancaire */
+.sequence-display {
+  background-color: #ffffff; /* Fond blanc pour la séquence */
+  color: #000000; /* Chiffres en noir */
+  font-family: "Courier New", Courier, monospace; /* Police à largeur fixe */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px; /* Bords arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour profondeur */
+  font-size: 1.2rem;
+  letter-spacing: 2px; /* Espacement entre les chiffres */
+}
+
+/* Style unifié pour les instructions, inputs, et boutons */
+.game-instruction,
+.success-message {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+input,
+.game-input {
+  padding: 10px;
+  margin: 5px 0; /* Ajustement pour l'espacement vertical */
+  font-size: 1rem;
+  border: 2px solid #ccc; /* Couleur de bordure douce */
+  border-radius: 5px;
+  width: 82%; /* Largeur ajustée pour les champs de saisie */
+  max-width: 300px; /* Limite de largeur maximale */
+}
+
+input:focus,
+.game-input:focus {
+  box-shadow: 0 0 0 2px #005fcc; /* Focus avec ombre bleue */
+}
+
+button,
+.game-button,
+.reset-button {
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  margin-top: 10px; /* Espacement au-dessus des boutons */
+  border: none; /* Suppression de la bordure par défaut */
+}
+
+.reset-button {
+  background-color: #f44336; /* Rouge pour action de réinitialisation */
+}
+
+/* Interaction avec les boutons */
+
+/* Adaptation pour le message de succès */
+.success-message {
+  color: #4bb543; /* Vert succès */
+}
+/* Style de base pour le composant de jeu */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f0f0f0; /* Couleur de fond légère */
+}
+
+.game-instruction {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.game-input {
+  padding: 10px;
+  margin: 5px 0; /* Ajustement pour l'espacement vertical */
+  font-size: 1rem;
+  border: 2px solid #ccc; /* Couleur de bordure douce */
+  border-radius: 5px;
+  width: 80%; /* Largeur ajustée pour les champs de saisie */
+  max-width: 300px; /* Limite de largeur maximale */
+}
+
+.game-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #005fcc; /* Bouton bleu pour une action claire */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.game-button:hover {
+  background-color: #003f88; /* Assombrir le bouton au survol pour un retour visuel */
+}
+
+/* Style spécifique pour la notification de succès */
+.success-message {
+  color: #4bb543; /* Vert pour indiquer le succès */
+}
+
+/* Bouton de réinitialisation pour rejouer */
+.reset-button {
+  margin-top: 20px;
+  background-color: #f44336; /* Rouge pour une action distincte de réinitialisation */
+}
+
+.reset-button:hover {
+  background-color: #d32f2f;
+}
+
+/*bouton start*/
+/*bg*/
+/*txt*/
+/*success*/
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  top: 20px;
+  left: 20px;
+}
+
+.buttons button {
+  width: 150px;
+  height: 50px;
+  background-color: white;
+  margin: 20px;
+  color: #568fa6;
+  position: relative;
+  overflow: hidden;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.buttons button:before,
+.buttons button:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #44d8a4;
+  transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button:before {
+  right: 0;
+  top: 0;
+  transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button:after {
+  left: 0;
+  bottom: 0;
+}
+
+.buttons button span {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+.buttons button span:before,
+.buttons button span:after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background-color: #44d8a4;
+  transition: all 0.3s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button span:before {
+  right: 0;
+  top: 0;
+  transition: all 0.5s cubic-bezier(0.35, 0.1, 0.25, 1);
+}
+
+.buttons button span:after {
+  left: 0;
+  bottom: 0;
+}
+
+.buttons button p {
+  padding: 0;
+  margin: 0;
+  transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.buttons button p:before,
+.buttons button p:after {
+  position: absolute;
+  width: 100%;
+  transition: all 0.4s cubic-bezier(0.35, 0.1, 0.25, 1);
+  z-index: 1;
+  left: 0;
+}
+
+.buttons button p:before {
+  content: attr(data-title);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.buttons button p:after {
+  content: attr(data-text);
+  top: 150%;
+  color: #44d8a4;
+}
+
+.buttons button:hover:before,
+.buttons button:hover:after {
+  width: 100%;
+}
+
+.buttons button:hover span {
+  z-index: 1;
+}
+
+.buttons button:hover span:before,
+.buttons button:hover span:after {
+  height: 100%;
+}
+
+.buttons button:hover p:before {
+  top: -50%;
+  transform: rotate(5deg);
+}
+
+.buttons button:hover p:after {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.buttons button.start {
+  background-color: #44d8a4;
+  box-shadow: 0px 5px 10px -10px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.buttons button.start p:before {
+  top: -50%;
+  transform: rotate(5deg);
+}
+
+.buttons button.start p:after {
+  color: white;
+  transition: all 0s ease;
+  content: attr(data-start);
+  top: 50%;
+  transform: translateY(-50%);
+  animation: start 0.3s ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes start {
+  from {
+    top: -50%;
+  }
+}
+
+.buttons button.start:hover:before,
+.buttons button.start:hover:after {
+  display: none;
+}
+
+.buttons button.start:hover span {
+  display: none;
+}
+
+.buttons button:active {
+  outline: none;
+  border: none;
+}
+
+.buttons button:focus {
+  outline: 0;
+}
+
+/* Bouton de skip */
+.skip-button {
+  border: none;
+  outline: none;
+  background-color: #721900;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 5px;
+  transition: all ease 0.1s;
+  box-shadow: 0px 5px 0px 0px #ff3600;
+  cursor: pointer; /* Ajout pour améliorer l'accessibilité */
+}
+
+.skip-button:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #ff3600;
+}
+/* bouton valider */
+.button.verify-button {
+  border: none;
+  outline: none;
+  background-color: #329600;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 5px;
+  transition: all ease 0.1s;
+  box-shadow: 0px 5px 0px 0px #56ff02;
+  cursor: pointer; /* Ajout pour améliorer l'accessibilité */
+}
+
+.button.verify-button[type="submit"]:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #56ff02;
+}
+
+.Vbutton {
+  border: none;
+  outline: none;
+  background-color: #329600;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 5px;
+  transition: all ease 0.1s;
+  box-shadow: 0px 5px 0px 0px #56ff02;
+  cursor: pointer;
+}
+
+.Vbutton:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #56ff02;
+}
+
+.memory-game form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.memory-game .form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Espacement entre les éléments pour une meilleure lisibilité */
+}
+
+.memory-game ul {
+  list-style-type: none; /* Enlève les puces de la liste */
+  padding: 0; /* Enlève le padding par défaut pour s'assurer que la liste est bien centrée */
+  margin: 0 auto; /* Centre la liste horizontalement */
+  text-align: center; /* Centre le texte des éléments de la liste */
+  max-width: 600px; /* Optionnel: Définit une largeur maximale pour la liste */
+}
+
+.memory-game li {
+  margin: 10px 0; /* Espacement vertical entre les éléments de la liste */
+  /* Pour centrer chaque élément de liste si nécessaire */
+  display: block;
+}
+
+.memory-game a {
+  color: #005fcc; /* Couleur des liens */
+  text-decoration: none; /* Enlève le soulignement des liens */
+  transition: color 0.3s ease; /* Transition pour le changement de couleur au survol */
+}
+
+.memory-game a:hover {
+  color: #003f88; /* Couleur des liens au survol */
+}
+
+.credits-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  margin: auto; /* Ajouté pour centrer dans la vue si nécessaire */
+  width: 100%; /* S'assurer que le conteneur prend toute la largeur */
+}
+
+.credits-container h2 {
+  /* Modifié de h1 à h2 pour correspondre à votre JSX */
+  margin-bottom: 15px;
+}
+
+.credits-container p {
+  margin-bottom: 10px;
+}
+
+.crypto-box .crypto-info {
+  background-color: white;
+  padding: 5px 10px; /* Ajustez le padding selon vos besoins */
+  border: 1px solid #ccc; /* Bordure légère */
+  border-radius: 5px; /* Bords arrondis */
+  display: inline-block; /* Pour garder le span en ligne avec le texte */
+  margin: 0 5px; /* Espace autour du span pour le démarquer */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre douce pour un effet de profondeur */
+}
+
+/*bouton paiement allrecall*/
+
+.modal {
+  width: fit-content;
+  height: fit-content;
+  background: #ffffff;
+  box-shadow:
+    0px 187px 75px rgba(0, 0, 0, 0.01),
+    0px 105px 63px rgba(0, 0, 0, 0.05),
+    0px 47px 47px rgba(0, 0, 0, 0.09),
+    0px 12px 26px rgba(0, 0, 0, 0.1),
+    0px 0px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 26px;
+  max-width: 450px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 30px;
+}
+
+.payment--options {
+  width: calc(100% - 40px);
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+  gap: 20px;
+  padding: 10px;
+}
+
+.payment--options button {
+  height: 55px;
+  background: #f2f2f2;
+  border-radius: 11px;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+.payment--options button svg {
+  height: 18px;
+}
+
+.payment--options button:last-child svg {
+  height: 22px;
+}
+
+.separator {
+  width: calc(100% - 20px);
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 10px;
+  color: #8b8e98;
+  margin: 0 10px;
+}
+
+.separator > p {
+  word-break: keep-all;
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  font-size: 11px;
+  margin: auto;
+}
+
+.separator .line {
+  display: inline-block;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background-color: #e8e8e8;
+  margin: auto;
+}
+
+.credit-card-info--form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input_container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  gap: 15px;
+}
+
+.split input {
+  width: 100%;
+}
+
+.input_label {
+  font-size: 10px;
+  color: #8b8e98;
+  font-weight: 600;
+}
+
+.input_field {
+  width: auto;
+  height: 40px;
+  padding: 0 0 0 1px;
+  border-radius: 9px;
+  outline: none;
+  background-color: #f2f2f2;
+  border: 1px solid #e5e5e500;
+  transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.input_field:focus {
+  border: 1px solid transparent;
+  box-shadow: 0px 0px 0px 2px #242424;
+  background-color: transparent;
+}
+
+.purchase--btn {
+  height: 55px;
+  background: #f2f2f2;
+  border-radius: 15px;
+  border: 0;
+  outline: none;
+  color: #ffffff;
+  font-size: 13 50;
+  font-weight: 700;
+  background: linear-gradient(180deg, #363636 0%, #1b1b1b 50%, #000000 100%);
+  box-shadow:
+    0px 0px 0px 0px #ffffff,
+    0px 0px 0px 0px #000000;
+  transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.purchase--btn:hover {
+  box-shadow:
+    0px 0px 0px 2px #ffffff,
+    0px 0px 0px 4px #0000003a;
+}
+
+/* Reset input number styles */
+.input_field::-webkit-outer-spin-button,
+.input_field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input_field[type="number"] {
+  -moz-appearance: textfield;
+}
